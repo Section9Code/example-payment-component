@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Form — Usage Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #f7f3ec;
+      --paper-2: #efe9de;
+      --ink: #1a1612;
+      --ink-muted: #6b6357;
+      --ink-soft: #8a8075;
+      --accent: #ff6600;
+      --accent-soft: #fff1e6;
+      --rule: #d9d1c0;
+      --code-bg: #211c17;
+      --code-ink: #f3e9d9;
+      --code-dim: #8a8075;
+      --code-str: #ffb37a;
+      --code-kw: #ff8a4a;
+      --code-cmt: #6b6357;
+      --content-max: 680px;
+      --sidebar: 220px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Instrument Sans', -apple-system, system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #fff 0%, transparent 60%),
+        radial-gradient(800px 500px at 100% 0%, var(--accent-soft) 0%, transparent 50%),
+        var(--paper);
+      background-attachment: fixed;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    /* Top nav */
+    .topnav {
+      position: relative;
+      z-index: 2;
+      border-bottom: 1px solid var(--rule);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .topnav a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .topnav a:hover {
+      border-color: var(--accent);
+    }
+
+    .topnav .brand {
+      color: var(--ink);
+    }
+
+    .topnav .brand .dot {
+      color: var(--accent);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      z-index: 2;
+      padding: 90px 28px 60px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .hero .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100;
+      font-weight: 380;
+      font-size: clamp(52px, 9vw, 112px);
+      letter-spacing: -0.035em;
+      line-height: 0.95;
+      margin: 0 0 28px;
+      color: var(--ink);
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100;
+      color: var(--accent);
+    }
+
+    .hero .lede {
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: 'opsz' 14, 'SOFT' 50;
+      font-weight: 350;
+      font-style: italic;
+      font-size: clamp(20px, 2.4vw, 26px);
+      line-height: 1.45;
+      color: var(--ink-muted);
+      max-width: 640px;
+      margin: 0 0 40px;
+    }
+
+    .hero .meta {
+      display: flex;
+      gap: 28px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      border-top: 1px solid var(--rule);
+      padding-top: 18px;
+    }
+
+    .hero .meta span::before {
+      content: '·';
+      color: var(--accent);
+      margin-right: 10px;
+    }
+
+    /* Layout */
+    .layout {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: var(--sidebar) 1fr;
+      gap: 80px;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 20px 28px 140px;
+    }
+
+    /* Sidebar TOC */
+    aside.toc {
+      position: sticky;
+      top: 40px;
+      align-self: start;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+
+    aside.toc .toc-label {
+      color: var(--ink-soft);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 10px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    aside.toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      counter-reset: toc;
+    }
+
+    aside.toc li {
+      counter-increment: toc;
+      padding: 6px 0;
+    }
+
+    aside.toc a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      transition: color 0.15s;
+    }
+
+    aside.toc a::before {
+      content: counter(toc, decimal-leading-zero);
+      color: var(--ink-soft);
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+
+    aside.toc a:hover {
+      color: var(--ink);
+    }
+
+    aside.toc a.active {
+      color: var(--accent);
+    }
+
+    aside.toc a.active::before {
+      color: var(--accent);
+    }
+
+    /* Main content */
+    main.article {
+      max-width: 100%;
+    }
+
+    main.article section {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      margin-bottom: 96px;
+      scroll-margin-top: 40px;
+    }
+
+    main.article section .marker {
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+      font-weight: 300;
+      font-size: 54px;
+      line-height: 1;
+      color: var(--accent);
+      font-feature-settings: 'lnum';
+      align-self: start;
+      padding-top: 6px;
+    }
+
+    main.article section .content {
+      max-width: var(--content-max);
+    }
+
+    main.article h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: 'opsz' 48, 'SOFT' 60;
+      font-weight: 400;
+      font-size: 36px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin: 0 0 20px;
+      color: var(--ink);
+    }
+
+    main.article h3 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-variation-settings: 'opsz' 24, 'SOFT' 80;
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      margin: 40px 0 14px;
+      color: var(--ink);
+    }
+
+    main.article p {
+      margin: 0 0 18px;
+      color: var(--ink);
+    }
+
+    main.article p+p {
+      margin-top: -4px;
+    }
+
+    main.article .dim {
+      color: var(--ink-muted);
+    }
+
+    main.article a {
+      color: var(--ink);
+      text-decoration: none;
+      background-image: linear-gradient(to right, var(--accent) 0%, var(--accent) 100%);
+      background-size: 100% 1px;
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      padding-bottom: 1px;
+      transition: background-size 0.2s;
+    }
+
+    main.article a:hover {
+      background-size: 100% 2px;
+    }
+
+    main.article code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88em;
+      background: var(--accent-soft);
+      color: #b23e00;
+      padding: 2px 6px;
+      border-radius: 3px;
+      border: 1px solid #f2d9c3;
+    }
+
+    /* Ornaments */
+    .ornament {
+      font-family: 'Fraunces', Georgia, serif;
+      text-align: center;
+      color: var(--ink-soft);
+      letter-spacing: 1.5em;
+      font-size: 14px;
+      margin: 60px 0 40px;
+      padding-right: calc(1.5em - 1ch);
+    }
+
+    /* Callouts */
+    .note {
+      border-left: 2px solid var(--accent);
+      padding: 14px 20px 14px 22px;
+      margin: 24px 0;
+      background: linear-gradient(to right, var(--accent-soft), transparent 70%);
+      font-size: 15px;
+      color: var(--ink-muted);
+      line-height: 1.55;
+    }
+
+    .note strong {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .note code {
+      background: #fff;
+      border-color: var(--rule);
+    }
+
+    /* Config table */
+    .config-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0 28px;
+      font-size: 15px;
+    }
+
+    .config-table th,
+    .config-table td {
+      text-align: left;
+      padding: 12px 12px 12px 0;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+    }
+
+    .config-table th {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      padding-bottom: 10px;
+    }
+
+    .config-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .config-table td.key code {
+      font-size: 13px;
+      background: transparent;
+      border: none;
+      color: var(--ink);
+      padding: 0;
+      font-weight: 500;
+    }
+
+    .config-table td.type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--ink-muted);
+      white-space: nowrap;
+    }
+
+    .config-table td.desc {
+      color: var(--ink-muted);
+      line-height: 1.5;
+    }
+
+    .config-table td.def {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    /* Event table */
+    .event-list {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .event-list li {
+      padding: 18px 0 18px;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 28px;
+      align-items: baseline;
+    }
+
+    .event-list .ename {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .event-list .edesc {
+      color: var(--ink-muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .event-list .edesc code {
+      font-size: 12px;
+      background: var(--paper-2);
+      border-color: var(--rule);
+      color: var(--ink);
+    }
+
+    /* Code blocks with tabs */
+    .codeblock {
+      margin: 24px 0 28px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--code-bg);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5), 0 20px 40px -20px rgba(26, 22, 18, 0.35);
+    }
+
+    .codeblock .tabs {
+      display: flex;
+      background: #1a1612;
+      border-bottom: 1px solid #2a2520;
+      padding: 0;
+    }
+
+    .codeblock .tabs button {
+      appearance: none;
+      background: transparent;
+      border: none;
+      color: var(--code-dim);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px 22px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .codeblock .tabs button:hover {
+      color: var(--code-ink);
+    }
+
+    .codeblock .tabs button.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .codeblock .tabs .filename {
+      margin-left: auto;
+      color: var(--code-dim);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 14px 22px;
+      align-self: center;
+    }
+
+    .codeblock pre {
+      display: none;
+      margin: 0;
+      padding: 24px 28px 28px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.75;
+      color: var(--code-ink);
+      overflow-x: auto;
+      tab-size: 2;
+    }
+
+    .codeblock pre.active {
+      display: block;
+    }
+
+    main.article .codeblock code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border: none;
+      font-size: inherit;
+      border-radius: 0;
+    }
+
+    .tok-c {
+      color: var(--code-cmt);
+      font-style: italic;
+    }
+
+    .tok-s {
+      color: var(--code-str);
+    }
+
+    .tok-k {
+      color: var(--code-kw);
+      font-weight: 500;
+    }
+
+    .tok-f {
+      color: #c8d8ff;
+    }
+
+    .tok-n {
+      color: #ffc48a;
+    }
+
+    /* Footer */
+    .footer {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid var(--rule);
+      padding: 40px 28px;
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .footer a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    .footer a:hover {
+      border-color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      aside.toc {
+        position: static;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      aside.toc ol {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px 28px;
+      }
+
+      main.article section {
+        grid-template-columns: 40px 1fr;
+        gap: 14px;
+        margin-bottom: 72px;
+      }
+
+      main.article section .marker {
+        font-size: 32px;
+      }
+
+      main.article section .marker::before {
+        font-size: 11px;
+      }
+
+      main.article h2 {
+        font-size: 28px;
+      }
+
+      .event-list li {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding: 50px 20px 40px;
+      }
+
+      .layout {
+        padding: 20px 20px 80px;
+      }
+
+      .topnav {
+        padding: 12px 20px;
+      }
+
+      body {
+        font-size: 16px;
+      }
+    }
+
+    /* Entrance */
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero>* {
+      animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero .eyebrow {
+      animation-delay: 0.05s;
+    }
+
+    .hero h1 {
+      animation-delay: 0.15s;
+    }
+
+    .hero .lede {
+      animation-delay: 0.3s;
+    }
+
+    .hero .meta {
+      animation-delay: 0.45s;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="topnav">
+    <div class="brand">Payment Form<span class="dot">.</span></div>
+    <div><a href="index.html">← Live Demo</a></div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">Component Documentation</div>
+    <h1>A payment form<br />that <em>stays out</em> of your way.</h1>
+    <p class="lede">A self-contained custom element that handles card entry, validation, and submission.</p>
+    <div class="meta">
+      <span>Web Component</span>
+      <span>Shadow DOM</span>
+      <span>Framework-agnostic</span>
+      <span>Zero dependencies</span>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <aside class="toc">
+      <div class="toc-label">Contents</div>
+      <ol>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#reference">Reference the component</a></li>
+        <li><a href="#mount">Put it on the page</a></li>
+        <li><a href="#configure">Configure it</a></li>
+        <li><a href="#events">Wire up the events</a></li>
+        <li><a href="#example">Full example</a></li>
+      </ol>
+    </aside>
+
+    <main class="article">
+
+      <!-- §1 Overview -->
+      <section id="overview">
+        <div class="marker">01</div>
+        <div class="content">
+          <h2>Overview</h2>
+          <p><code>&lt;payment-form&gt;</code> is a custom element that renders a card entry form, validates input
+            locally, and handles the payment submission end-to-end. It knows nothing about the host page. The host page
+            knows nothing about card entry.</p>
+          <p>Communication runs one way in (via a <code>configure()</code> method) and one way out (via DOM events
+            that bubble out of the shadow root).</p>
+
+          <div class="note">
+            <strong>Why it's shaped this way</strong>
+            Card entry and payment submission live inside the shadow DOM; the host only decides what to do when a
+            payment succeeds, fails, or is reset. The component owns the gateway integration — you never see the card
+            details.
+          </div>
+        </div>
+      </section>
+
+      <!-- §2 Reference -->
+      <section id="reference">
+        <div class="marker">02</div>
+        <div class="content">
+          <h2>Reference the component</h2>
+          <p>The component registers itself as <code>&lt;payment-form&gt;</code> the first time its module is evaluated.
+            Load it once — anywhere on the page or at the top of your app bundle.</p>
+
+          <div class="codeblock" data-active="js">
+            <div class="tabs">
+              <button data-tab="js" class="active">Vanilla</button>
+              <button data-tab="react">React</button>
+              <span class="filename">import</span>
+            </div>
+            <pre data-tab="js" class="active"><code><span class="tok-c">// Option A — classic script tag in HTML</span>
+&lt;script <span class="tok-n">type</span>=<span class="tok-s">"module"</span> <span class="tok-n">src</span>=<span class="tok-s">"https://pay.ej.com/payment-form.js"</span>&gt;&lt;/script&gt;
+
+<span class="tok-c">// Option B — ES module import from your entry file</span>
+<span class="tok-k">import</span> <span class="tok-s">'https://pay.ej.com/payment-form.js'</span>;</code></pre>
+            <pre data-tab="react"><code><span class="tok-c">// Import once, typically at the top of your app entry.</span>
+<span class="tok-c">// The module self-registers the &lt;payment-form&gt; element.</span>
+<span class="tok-k">import</span> <span class="tok-s">'https://pay.ej.com/payment-form.js'</span>;</code></pre>
+          </div>
+
+          <div class="note">
+            <strong>Side-effect import</strong>
+            You do not import the class. Just loading the file calls
+            <code>customElements.define('payment-form', ...)</code>. Guard against double-registration if your bundler
+            eagerly re-evaluates modules.
+          </div>
+        </div>
+      </section>
+
+      <!-- §3 Mount -->
+      <section id="mount">
+        <div class="marker">03</div>
+        <div class="content">
+          <h2>Put it on the page</h2>
+          <p>Drop the tag anywhere a block-level element is allowed. It sizes to its own shadow layout — you can wrap it
+            in a container to constrain width.</p>
+
+          <div class="codeblock" data-active="js">
+            <div class="tabs">
+              <button data-tab="js" class="active">Vanilla</button>
+              <button data-tab="react">React</button>
+              <span class="filename">markup</span>
+            </div>
+            <pre data-tab="js" class="active"><code>&lt;main&gt;
+  &lt;payment-form <span class="tok-n">id</span>=<span class="tok-s">"checkout"</span>&gt;&lt;/payment-form&gt;
+&lt;/main&gt;</code></pre>
+            <pre data-tab="react"><code><span class="tok-k">import</span> { <span class="tok-f">useRef</span> } <span class="tok-k">from</span> <span class="tok-s">'react'</span>;
+
+<span class="tok-k">export function</span> <span class="tok-f">Checkout</span>() {
+  <span class="tok-k">const</span> formRef = <span class="tok-f">useRef</span>(<span class="tok-k">null</span>);
+
+  <span class="tok-k">return</span> (
+    &lt;main&gt;
+      &lt;payment-form <span class="tok-n">ref</span>={formRef} /&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+          </div>
+
+          <div class="note">
+            <strong>React</strong>
+            Hold a ref — you'll need it to call <code>configure()</code> and attach listeners. React 19 supports custom
+            elements natively; earlier versions render the tag fine but cannot pass non-string props or bind custom
+            events via JSX, so the ref approach is the portable path.
+          </div>
+        </div>
+      </section>
+
+      <!-- §4 Configure -->
+      <section id="configure">
+        <div class="marker">04</div>
+        <div class="content">
+          <h2>Configure it</h2>
+          <p>Call <code>configure()</code> before the user interacts with the form. A partial object is fine — omitted
+            keys keep their defaults. Unknown keys and invalid values are silently ignored. You can re-call at any time;
+            the form re-renders in place.</p>
+
+          <table class="config-table">
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="key"><code>submitLabel</code></td>
+                <td class="type">string</td>
+                <td class="def">"Pay Now"</td>
+                <td class="desc">Primary button text. Amount is appended when <code>amount</code> +
+                  <code>currency</code> are set.
+                </td>
+              </tr>
+              <tr>
+                <td class="key"><code>cancelLabel</code></td>
+                <td class="type">string</td>
+                <td class="def">"Cancel"</td>
+                <td class="desc">Secondary button text (fires <code>payment-reset</code>).</td>
+              </tr>
+              <tr>
+                <td class="key"><code>heading</code></td>
+                <td class="type">string?</td>
+                <td class="def">—</td>
+                <td class="desc">Renders an <code>&lt;h2&gt;</code> inside the form. Omit for no heading.</td>
+              </tr>
+              <tr>
+                <td class="key"><code>requireCvv</code></td>
+                <td class="type">boolean</td>
+                <td class="def">true</td>
+                <td class="desc">When false, the CVV field is removed from the DOM and omitted from validation &amp;
+                  processor details.</td>
+              </tr>
+              <tr>
+                <td class="key"><code>primaryColor</code></td>
+                <td class="type">css-color</td>
+                <td class="def">"#3b82f6"</td>
+                <td class="desc">Applied as <code>--pf-primary</code>; drives submit background and focus outlines.</td>
+              </tr>
+              <tr>
+                <td class="key"><code>amount</code></td>
+                <td class="type">number</td>
+                <td class="def">—</td>
+                <td class="desc">Included in processor details. Paired with <code>currency</code>, formats the submit
+                  label.</td>
+              </tr>
+              <tr>
+                <td class="key"><code>currency</code></td>
+                <td class="type">ISO&nbsp;4217</td>
+                <td class="def">—</td>
+                <td class="desc">Used with <code>amount</code> via <code>Intl.NumberFormat</code> for display.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="codeblock" data-active="js">
+            <div class="tabs">
+              <button data-tab="js" class="active">Vanilla</button>
+              <button data-tab="react">React</button>
+              <span class="filename">configure</span>
+            </div>
+            <pre data-tab="js" class="active"><code><span class="tok-k">const</span> form = <span class="tok-f">document</span>.<span class="tok-f">querySelector</span>(<span class="tok-s">'payment-form'</span>);
+
+form.<span class="tok-f">configure</span>({
+  heading: <span class="tok-s">'Complete your booking'</span>,
+  submitLabel: <span class="tok-s">'Book flight'</span>,
+  primaryColor: <span class="tok-s">'#ff6600'</span>,
+  amount: <span class="tok-n">199.00</span>,
+  currency: <span class="tok-s">'GBP'</span>,
+});
+
+<span class="tok-c">// Re-call any time to update live:</span>
+form.<span class="tok-f">configure</span>({ amount: <span class="tok-n">3599</span> });</code></pre>
+            <pre data-tab="react"><code><span class="tok-k">import</span> { <span class="tok-f">useEffect</span>, <span class="tok-f">useRef</span> } <span class="tok-k">from</span> <span class="tok-s">'react'</span>;
+
+<span class="tok-k">export function</span> <span class="tok-f">Checkout</span>({ amount }) {
+  <span class="tok-k">const</span> formRef = <span class="tok-f">useRef</span>(<span class="tok-k">null</span>);
+
+  <span class="tok-f">useEffect</span>(() =&gt; {
+    formRef.current?.<span class="tok-f">configure</span>({
+      heading: <span class="tok-s">'Complete your booking'</span>,
+      submitLabel: <span class="tok-s">'Book flight'</span>,
+      primaryColor: <span class="tok-s">'#ff6600'</span>,
+      amount,
+      currency: <span class="tok-s">'GBP'</span>,
+    });
+  }, [amount]);
+
+  <span class="tok-k">return</span> &lt;payment-form <span class="tok-n">ref</span>={formRef} /&gt;;
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- §5 Events -->
+      <section id="events">
+        <div class="marker">05</div>
+        <div class="content">
+          <h2>Wire up the events</h2>
+          <p>The component tells the host page what happened via three DOM events that bubble out of the shadow root.
+            All three are <code>composed</code>, so you can listen on the element itself or on any ancestor in light
+            DOM.</p>
+
+          <ul class="event-list">
+            <li>
+              <span class="ename">payment-success</span>
+              <span class="edesc">The payment was approved. No <code>detail</code>.</span>
+            </li>
+            <li>
+              <span class="ename">payment-error</span>
+              <span class="edesc">The payment was declined or failed. <code>detail.message</code> holds the message
+                shown to the user.</span>
+            </li>
+            <li>
+              <span class="ename">payment-reset</span>
+              <span class="edesc">The user clicked the cancel button; the form has returned to its idle state. No
+                <code>detail</code>.</span>
+            </li>
+          </ul>
+
+          <div class="codeblock" data-active="js">
+            <div class="tabs">
+              <button data-tab="js" class="active">Vanilla</button>
+              <button data-tab="react">React</button>
+              <span class="filename">events</span>
+            </div>
+            <pre data-tab="js" class="active"><code>form.<span class="tok-f">addEventListener</span>(<span class="tok-s">'payment-success'</span>, () =&gt; {
+  <span class="tok-f">navigate</span>(<span class="tok-s">'/thanks'</span>);
+});
+
+form.<span class="tok-f">addEventListener</span>(<span class="tok-s">'payment-error'</span>, (e) =&gt; {
+  <span class="tok-f">toast</span>.<span class="tok-f">error</span>(e.detail.message);
+});
+
+form.<span class="tok-f">addEventListener</span>(<span class="tok-s">'payment-reset'</span>, () =&gt; {
+  <span class="tok-f">analytics</span>.<span class="tok-f">track</span>(<span class="tok-s">'checkout_abandoned'</span>);
+});</code></pre>
+            <pre data-tab="react"><code><span class="tok-f">useEffect</span>(() =&gt; {
+  <span class="tok-k">const</span> el = formRef.current;
+  <span class="tok-k">if</span> (!el) <span class="tok-k">return</span>;
+
+  <span class="tok-k">const</span> onSuccess = () =&gt; <span class="tok-f">navigate</span>(<span class="tok-s">'/thanks'</span>);
+  <span class="tok-k">const</span> onError = (e) =&gt; <span class="tok-f">toast</span>.<span class="tok-f">error</span>(e.detail.message);
+  <span class="tok-k">const</span> onReset = () =&gt; <span class="tok-f">analytics</span>.<span class="tok-f">track</span>(<span class="tok-s">'checkout_abandoned'</span>);
+
+  el.<span class="tok-f">addEventListener</span>(<span class="tok-s">'payment-success'</span>, onSuccess);
+  el.<span class="tok-f">addEventListener</span>(<span class="tok-s">'payment-error'</span>, onError);
+  el.<span class="tok-f">addEventListener</span>(<span class="tok-s">'payment-reset'</span>, onReset);
+  <span class="tok-k">return</span> () =&gt; {
+    el.<span class="tok-f">removeEventListener</span>(<span class="tok-s">'payment-success'</span>, onSuccess);
+    el.<span class="tok-f">removeEventListener</span>(<span class="tok-s">'payment-error'</span>, onError);
+    el.<span class="tok-f">removeEventListener</span>(<span class="tok-s">'payment-reset'</span>, onReset);
+  };
+}, []);</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <div class="ornament">✱ ✱ ✱</div>
+
+      <!-- §6 Full example -->
+      <section id="example">
+        <div class="marker">06</div>
+        <div class="content">
+          <h2>Putting it together</h2>
+          <p>A minimal working host — configure once, attach listeners, react to outcomes. The component handles
+            card entry, validation, and the bank call itself.</p>
+
+          <div class="codeblock" data-active="js">
+            <div class="tabs">
+              <button data-tab="js" class="active">Vanilla</button>
+              <button data-tab="react">React</button>
+              <span class="filename">checkout</span>
+            </div>
+            <pre data-tab="js"
+              class="active"><code><span class="tok-k">import</span> <span class="tok-s">'https://pay.ej.com/payment-form.js'</span>;
+
+<span class="tok-k">const</span> form = <span class="tok-f">document</span>.<span class="tok-f">querySelector</span>(<span class="tok-s">'payment-form'</span>);
+
+form.<span class="tok-f">configure</span>({
+  heading: <span class="tok-s">'Complete your booking'</span>,
+  submitLabel: <span class="tok-s">'Book flight'</span>,
+  primaryColor: <span class="tok-s">'#ff6600'</span>,
+  amount: <span class="tok-n">199</span>,
+  currency: <span class="tok-s">'GBP'</span>,
+});
+
+form.<span class="tok-f">addEventListener</span>(<span class="tok-s">'payment-success'</span>, () =&gt; <span class="tok-f">navigate</span>(<span class="tok-s">'/thanks'</span>));
+form.<span class="tok-f">addEventListener</span>(<span class="tok-s">'payment-error'</span>, (e) =&gt; <span class="tok-f">toast</span>.<span class="tok-f">error</span>(e.detail.message));</code></pre>
+            <pre data-tab="react"><code><span class="tok-k">import</span> { <span class="tok-f">useEffect</span>, <span class="tok-f">useRef</span> } <span class="tok-k">from</span> <span class="tok-s">'react'</span>;
+<span class="tok-k">import</span> <span class="tok-s">'https://pay.ej.com/payment-form.js'</span>;
+
+<span class="tok-k">export function</span> <span class="tok-f">Checkout</span>({ amount, onSuccess, onError }) {
+  <span class="tok-k">const</span> formRef = <span class="tok-f">useRef</span>(<span class="tok-k">null</span>);
+
+  <span class="tok-f">useEffect</span>(() =&gt; {
+    <span class="tok-k">const</span> el = formRef.current;
+    <span class="tok-k">if</span> (!el) <span class="tok-k">return</span>;
+
+    el.<span class="tok-f">configure</span>({
+      heading: <span class="tok-s">'Complete your booking'</span>,
+      submitLabel: <span class="tok-s">'Book flight'</span>,
+      primaryColor: <span class="tok-s">'#ff6600'</span>,
+      amount,
+      currency: <span class="tok-s">'GBP'</span>,
+    });
+
+    el.<span class="tok-f">addEventListener</span>(<span class="tok-s">'payment-success'</span>, onSuccess);
+    el.<span class="tok-f">addEventListener</span>(<span class="tok-s">'payment-error'</span>, onError);
+    <span class="tok-k">return</span> () =&gt; {
+      el.<span class="tok-f">removeEventListener</span>(<span class="tok-s">'payment-success'</span>, onSuccess);
+      el.<span class="tok-f">removeEventListener</span>(<span class="tok-s">'payment-error'</span>, onError);
+    };
+  }, [amount, onSuccess, onError]);
+
+  <span class="tok-k">return</span> &lt;payment-form <span class="tok-n">ref</span>={formRef} /&gt;;
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div>Payment Form · Usage Guide</div>
+    <div><a href="index.html">Back to live demo →</a></div>
+  </footer>
+
+  <script>
+    // Tab switcher
+    document.querySelectorAll('.codeblock').forEach((block) => {
+      const tabs = block.querySelectorAll('.tabs button');
+      const panes = block.querySelectorAll('pre[data-tab]');
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.tab;
+          tabs.forEach((t) => t.classList.toggle('active', t === tab));
+          panes.forEach((p) => p.classList.toggle('active', p.dataset.tab === target));
+        });
+      });
+    });
+
+    // Sync all blocks to the same tab when one is switched — more pleasant reading
+    document.addEventListener('click', (e) => {
+      const clicked = e.target.closest('.codeblock .tabs button');
+      if (!clicked) return;
+      const target = clicked.dataset.tab;
+      document.querySelectorAll('.codeblock').forEach((block) => {
+        block.querySelectorAll('.tabs button').forEach((b) =>
+          b.classList.toggle('active', b.dataset.tab === target)
+        );
+        block.querySelectorAll('pre[data-tab]').forEach((p) =>
+          p.classList.toggle('active', p.dataset.tab === target)
+        );
+      });
+    });
+
+    // TOC active-state on scroll
+    const sections = document.querySelectorAll('main.article section[id]');
+    const tocLinks = document.querySelectorAll('aside.toc a');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          tocLinks.forEach((l) => l.classList.toggle('active', l.getAttribute('href') === `#${id}`));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    sections.forEach((s) => observer.observe(s));
+  </script>
+
+</body>
+
+</html>

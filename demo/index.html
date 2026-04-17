@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Component Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="demo-container">
+    <nav class="page-nav">
+      <a href="docs.html">Usage guide →</a>
+    </nav>
+    <h1>Payment Component Demo</h1>
+    <p class="demo-description">A demonstration of the &lt;payment-form&gt; web component lifecycle: rendering, validation, submission, and event handling.</p>
+    
+    <div class="amount-options">
+      <button type="button" id="pay-in-full-btn">Pay in full £3,599</button>
+      <button type="button" id="pay-deposit-btn">Pay deposit £120</button>
+    </div>
+    <br/>
+
+    <div class="component-wrapper">
+      <payment-form id="payment-form-demo"></payment-form>
+    </div>
+
+    <div class="demo-controls">
+      <label class="toggle-label">
+        <input type="checkbox" id="simulate-success" checked />
+        Simulate successful payment
+      </label>
+    </div>
+
+    <section class="event-log-section">
+      <h2>Event Log</h2>
+      <div id="event-log" class="event-log" aria-live="polite" aria-label="Payment event log">
+        <p class="log-empty">No events yet. Submit the form to see events here.</p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="../components/payment-form.js"></script>
+  <script type="module" src="demo.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+/* Demo page styles */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 2rem 1rem;
+  font-family: system-ui, sans-serif;
+  background: #f9fafb;
+  color: #111827;
+  min-height: 100vh;
+}
+
+.demo-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.page-nav {
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.page-nav a {
+  color: #ff6600;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+
+.page-nav a:hover {
+  border-bottom-color: #ff6600;
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.demo-description {
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
+.component-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+/* Toggle control */
+.demo-controls {
+  margin-bottom: 1.5rem;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-label input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.amount-options {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.amount-options button {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.amount-options button:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+/* Event log panel */
+.event-log-section h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.event-log {
+  background: #1f2937;
+  color: #f9fafb;
+  border-radius: 6px;
+  padding: 1rem;
+  min-height: 120px;
+  font-family: monospace;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.log-empty {
+  color: #9ca3af;
+  margin: 0;
+}
+
+.log-entry {
+  margin-bottom: 0.25rem;
+  word-break: break-all;
+}
+
+.log-submit { color: #93c5fd; }
+.log-success { color: #86efac; }
+.log-error   { color: #fca5a5; }
+.log-reset   { color: #fde68a; }
